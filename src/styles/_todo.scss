@@ -1,0 +1,101 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(80%, 400px);
+  gap: 20px;
+  font-size: 1.2rem;
+  //   background-color: var(--pink);
+  color: var(--bg);
+}
+
+.todo__input-container {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  button {
+    position: absolute;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    color: var(--bg);
+    background-color: var(--pink);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+.todo__input {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.todo__item-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 100%;
+  padding-left: 5px;
+  padding-block: 5px;
+  border: 3px solid var(--pink);
+  border-radius: 10px;
+}
+
+.todo__item {
+  position: relative;
+  padding: 5px;
+  label {
+    width: 100%;
+  }
+}
+input {
+  // 有需要分待完成和已完成再讓checkbox出現
+  appearance: none;
+}
+button {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  font-size: 1rem;
+  color: var(--bg);
+  background-color: transparent;
+  transform: translateY(-50%);
+}
+
+.todoToHome {
+  position: fixed;
+  right: 5vw;
+  top: 5vh;
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--bg);
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  &::before {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    color: var(--bg);
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1rem;
+    transform: translate(-50%, -50%);
+    content: "\e3af";
+    z-index: 5;
+  }
+  &:hover::before,
+  &:focus-visible::before {
+    isolation: isolate;
+    content: "\f177";
+  }
+  &:hover,
+  &:focus-visible {
+    box-shadow: var(--pink) 0 0 0 40px inset;
+  }
+}

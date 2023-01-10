@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: hsl(39, 100%, 92%);
+  --bg-20: hsl(39, 100%, 20%);
+  --todo: #fffaf0;
+  --todo2: #e4d8bd;
+  --white: #fff;
+  --pink: #f97090;
+  --dark: #222222;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-height: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark);
+  font-family: "Zen Old Mincho", "Noto Sans TC", sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+input,
+button {
+  outline: none;
+  border: none;
+}
+
+input[type=text] {
+  padding-left: 10px;
+  color: var(--dark);
+  font-size: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.homeToTodo {
+  position: relative;
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bg);
+  padding: 20px 30px;
+  box-shadow: 10px 10px 0 0 var(--bg), inset 10px 10px 0 0 var(--bg);
+  transition: all 0.8s ease-in-out;
+}
+.homeToTodo:before {
+  position: absolute;
+  display: block;
+  width: 0px;
+  height: 0px;
+  border-radius: 100%;
+  background-color: var(--pink);
+  content: "";
+  transform: translate(-25%, -50%);
+  transform-origin: 50%;
+  transition: all 0.8s ease-in-out;
+}
+.homeToTodo:after {
+  position: absolute;
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+  content: "";
+}
+.homeToTodo:hover::after {
+  opacity: 1;
+  content: "ENTER";
+}
+.homeToTodo:hover::before, .homeToTodo:focus-visible:before {
+  transform: translate(-25%, -50%);
+  content: "TODO";
+  width: 300px;
+  height: 300px;
+}
+.homeToTodo:hover {
+  letter-spacing: 10px;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(80%, 400px);
+  gap: 20px;
+  font-size: 1.2rem;
+  color: var(--bg);
+}
+
+.todo__input-container {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  display: flex;
+}
+.todo__input-container button {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--bg);
+  background-color: var(--pink);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.todo__input {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.todo__item-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 100%;
+  padding-left: 5px;
+  padding-block: 5px;
+  border: 3px solid var(--pink);
+  border-radius: 10px;
+}
+
+.todo__item {
+  position: relative;
+  padding: 5px;
+}
+.todo__item label {
+  width: 100%;
+}
+
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  font-size: 1rem;
+  color: var(--bg);
+  background-color: transparent;
+  transform: translateY(-50%);
+}
+
+.todoToHome {
+  position: fixed;
+  right: 5vw;
+  top: 5vh;
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--bg);
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+.todoToHome::before {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  color: var(--bg);
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 1rem;
+  transform: translate(-50%, -50%);
+  content: "\e3af";
+  z-index: 5;
+}
+.todoToHome:hover::before, .todoToHome:focus-visible::before {
+  isolation: isolate;
+  content: "\f177";
+}
+.todoToHome:hover, .todoToHome:focus-visible {
+  box-shadow: var(--pink) 0 0 0 40px inset;
+}/*# sourceMappingURL=style.css.map */

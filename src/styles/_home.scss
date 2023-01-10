@@ -1,0 +1,42 @@
+.homeToTodo {
+  position: relative;
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bg);
+  padding: 20px 30px;
+  box-shadow: 10px 10px 0 0 var(--bg), inset 10px 10px 0 0 var(--bg);
+  transition: all 0.8s ease-in-out;
+  &:before {
+    position: absolute;
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-radius: 100%;
+    background-color: var(--pink);
+    content: "";
+    transform: translate(-25%, -50%);
+    transform-origin: 50%;
+    transition: all 0.8s ease-in-out;
+  }
+  &:after {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.8s ease-in-out;
+    content: "";
+  }
+  &:hover::after {
+    opacity: 1;
+    content: "ENTER";
+  }
+  &:hover::before,
+  &:focus-visible:before {
+    transform: translate(-25%, -50%);
+    content: "TODO";
+    width: 300px;
+    height: 300px;
+  }
+  &:hover {
+    letter-spacing: 10px;
+  }
+}
