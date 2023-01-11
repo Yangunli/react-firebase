@@ -30,13 +30,13 @@ const Todo = () => {
     // eslint-disable-next-line
   }, []);
 
-  const unsubscribe = onSnapshot(collection(db, "todo"), (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data());
-    });
-  });
+  // const unsubscribe = onSnapshot(collection(db, "todo"), (querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //     console.log(doc.data());
+  //   });
+  // });
 
-  unsubscribe(); // 停止監聽
+  // unsubscribe(); // 停止監聽
 
   const addTask = async () => {
     if (newTask.trim().length > 3) {
@@ -44,6 +44,7 @@ const Todo = () => {
       let newEntry = { todo: newTask.trim(), status: false };
       await addDoc(todoCollectionRef, newEntry);
       setNewTask("");
+      getTodoList();
     } else {
       alert("最少要輸入四個字唷");
     }
@@ -52,6 +53,7 @@ const Todo = () => {
   const deleteTask = async (id) => {
     const todoDoc = doc(db, "todo", id);
     await deleteDoc(todoDoc);
+    getTodoList();
   };
 
   return (
