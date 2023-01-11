@@ -12,11 +12,12 @@
     display: block;
     width: 0px;
     height: 0px;
-    border-radius: 100%;
+    border-radius: 50%;
     background-color: var(--pink);
     content: "";
+    left: 10%;
     transform: translate(-25%, -50%);
-    transform-origin: 50%;
+    transform-origin: center;
     transition: all 0.8s ease-in-out;
   }
   &:after {
@@ -38,5 +39,31 @@
   }
   &:hover {
     letter-spacing: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .homeToTodo {
+    letter-spacing: 10px;
+    &:before {
+      position: absolute;
+      display: block;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: var(--pink);
+      transform: translate(-25%, -50%);
+      content: "TODO";
+      transform-origin: 50%;
+      transition: all 0.8s ease-in-out;
+    }
+    &:after {
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      opacity: 1;
+      transition: all 0.8s ease-in-out;
+      content: "ENTER";
+    }
   }
 }

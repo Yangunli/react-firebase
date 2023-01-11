@@ -35,6 +35,10 @@ button {
   border: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 input[type="text"] {
   padding-left: 10px;
   color: var(--dark);

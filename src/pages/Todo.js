@@ -1,28 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { db } from "../firebase";
 import TodoInput from "../components/Todo/TodoInput";
 import TodoItem from "../components/Todo/TodoItem";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const Todo = () => {
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState("");
-  const addTask = () => {
+  const todoCollectionRef = collection(db, "todo");
+  const getTodoList = async () => {
+    const data = await getDocs(todoCollectionRef);
+    setTodoList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  useEffect(() => {
+    getTodoList();
+
+    // eslint-disable-next-line
+  }, [todoList]);
+  const addTask = async () => {
     if (newTask.trim().length > 3) {
       let num = todoList.length + 1;
-      let newEntry = { id: num, todo: newTask.trim(), status: false };
-      setTodoList([...todoList, newEntry]);
+      let newEntry = { todo: newTask.trim(), status: false };
+      await addDoc(todoCollectionRef, newEntry);
       setNewTask("");
     } else {
       alert("最少要輸入四個字唷");
     }
   };
-  const deleteTask = (id) => {
-    setTodoList(todoList.filter((task) => task.id !== id));
+
+  const deleteTask = async (id) => {
+    const todoDoc = doc(db, "todo", id);
+    await deleteDoc(todoDoc);
   };
-  console.log(1);
-  console.log("====================================");
-  // console.log(`${process.env.REACT_APP_API_KEY}???`);
-  console.log("====================================");
+
+  // const deleteTask = (id) => {
+  //   setTodoList(todoList.filter((task) => task.id !== id));
+  // };
   return (
     <div className="todo-container">
       <Link to="/">
