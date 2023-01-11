@@ -9,9 +9,13 @@ import {
   addDoc,
   doc,
   deleteDoc,
+  onSnapshot,
+  query,
+  where,
 } from "firebase/firestore";
 
 const Todo = () => {
+  const [loading, setLoading] = useState(true);
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState("");
   const todoCollectionRef = collection(db, "todo");
@@ -24,7 +28,16 @@ const Todo = () => {
     getTodoList();
 
     // eslint-disable-next-line
-  }, [todoList]);
+  }, []);
+
+  const unsubscribe = onSnapshot(collection(db, "todo"), (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+    });
+  });
+
+  unsubscribe(); // 停止監聽
+
   const addTask = async () => {
     if (newTask.trim().length > 3) {
       let num = todoList.length + 1;
@@ -41,9 +54,6 @@ const Todo = () => {
     await deleteDoc(todoDoc);
   };
 
-  // const deleteTask = (id) => {
-  //   setTodoList(todoList.filter((task) => task.id !== id));
-  // };
   return (
     <div className="todo-container">
       <Link to="/">
