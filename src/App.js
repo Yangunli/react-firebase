@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/todo" element={<Todo />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </div>
     </BrowserRouter>

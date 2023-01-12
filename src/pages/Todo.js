@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import TodoInput from "../components/Todo/TodoInput";
@@ -9,7 +9,6 @@ import {
   addDoc,
   doc,
   deleteDoc,
-  onSnapshot,
   query,
   where,
 } from "firebase/firestore";
@@ -29,14 +28,6 @@ const Todo = () => {
 
     // eslint-disable-next-line
   }, []);
-
-  // const unsubscribe = onSnapshot(collection(db, "todo"), (querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-  //     console.log(doc.data());
-  //   });
-  // });
-
-  // unsubscribe(); // 停止監聽
 
   const addTask = async () => {
     if (newTask.trim().length > 3) {
