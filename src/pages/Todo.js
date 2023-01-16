@@ -11,6 +11,7 @@ import {
   deleteDoc,
   query,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 
 const Todo = () => {
@@ -18,15 +19,16 @@ const Todo = () => {
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState("");
   const todoCollectionRef = collection(db, "todo");
-  const getTodoList = async () => {
-    const data = await getDocs(todoCollectionRef);
-    setTodoList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log(123);
-  };
-
   useEffect(() => {
-    return () => getTodoList();
-    // eslint-disable-next-line
+    const q = query(todoCollectionRef);
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let todosArr = [];
+      querySnapshot.forEach((doc) => {
+        todosArr.push({ ...doc.data(), id: doc.id });
+      });
+      setTodoList(todosArr);
+    });
+    return () => unsubscribe();
   }, []);
 
   const addTask = async () => {
@@ -34,7 +36,6 @@ const Todo = () => {
       let newEntry = { todo: newTask.trim(), status: false };
       await addDoc(todoCollectionRef, newEntry);
       setNewTask("");
-      getTodoList();
     } else {
       alert("最少要輸入四個字唷");
     }
@@ -43,7 +44,6 @@ const Todo = () => {
   const deleteTask = async (id) => {
     const todoDoc = doc(db, "todo", id);
     await deleteDoc(todoDoc);
-    getTodoList();
   };
 
   return (
