@@ -21,17 +21,16 @@ const Todo = () => {
   const getTodoList = async () => {
     const data = await getDocs(todoCollectionRef);
     setTodoList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    console.log(123);
   };
 
   useEffect(() => {
-    getTodoList();
-
+    return () => getTodoList();
     // eslint-disable-next-line
   }, []);
 
   const addTask = async () => {
     if (newTask.trim().length > 3) {
-      let num = todoList.length + 1;
       let newEntry = { todo: newTask.trim(), status: false };
       await addDoc(todoCollectionRef, newEntry);
       setNewTask("");
@@ -63,7 +62,7 @@ const Todo = () => {
       </div>
 
       <div className="todo__item-container">
-        {todoList && todoList.length ? "" : "Your List is Empty"}
+        {todoList ?? todoList.length ? "" : "Your List is Empty"}
         {todoList.map((todo, i) => {
           return <TodoItem todo={todo} key={i} deleteTask={deleteTask} />;
         })}
